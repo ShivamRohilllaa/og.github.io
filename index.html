@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OG4U — The OG Drink for Gen Z | Delhi</title>
+  <meta name="description" content="OG4U — Premium vodka & soft drinks crafted for Gen Z. Now available in Delhi." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Cursor Glow -->
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- Preloader -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-inner">
+      <div class="preloader-logo">OG<span>4U</span></div>
+      <div class="preloader-bar"><div class="preloader-bar-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">OG<span>4U</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="#about" class="nav-link" data-index="0">About</a>
+        <a href="#products" class="nav-link" data-index="1">Products</a>
+        <a href="#vibe" class="nav-link" data-index="2">The Vibe</a>
+        <a href="#locations" class="nav-link" data-index="3">Find Us</a>
+        <a href="#contact" class="nav-link" data-index="4">Contact</a>
+      </div>
+      <a href="#products" class="nav-cta">Explore Drinks</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-bg"></div>
+    <div class="mobile-menu-content">
+      <div class="mobile-menu-links">
+        <a href="#about" class="mobile-link" data-index="0"><span class="mobile-link-num">01</span><span class="mobile-link-text">About</span></a>
+        <a href="#products" class="mobile-link" data-index="1"><span class="mobile-link-num">02</span><span class="mobile-link-text">Products</span></a>
+        <a href="#vibe" class="mobile-link" data-index="2"><span class="mobile-link-num">03</span><span class="mobile-link-text">The Vibe</span></a>
+        <a href="#locations" class="mobile-link" data-index="3"><span class="mobile-link-num">04</span><span class="mobile-link-text">Find Us</span></a>
+        <a href="#contact" class="mobile-link" data-index="4"><span class="mobile-link-num">05</span><span class="mobile-link-text">Contact</span></a>
+      </div>
+      <div class="mobile-menu-footer">
+        <div class="mobile-menu-socials">
+          <a href="#">IG</a>
+          <a href="#">TW</a>
+          <a href="#">YT</a>
+        </div>
+        <p class="mobile-menu-tagline">Original goodness for you.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-particles" id="heroParticles"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Now Live in Delhi
+      </div>
+      <h1 class="hero-title">
+        <span class="hero-title-line"><span class="hero-title-word" data-index="0">NOT</span> <span class="hero-title-word" data-index="1">YOUR</span></span>
+        <span class="hero-title-line"><span class="hero-title-word hero-title-outline" data-index="2">BASIC</span></span>
+        <span class="hero-title-line"><span class="hero-title-word hero-title-gradient" data-index="3">DRINK.</span></span>
+      </h1>
+      <p class="hero-sub">Original goodness for you. Premium drinks crafted for the generation that refuses to settle. Bold flavors, zero compromise.</p>
+      <div class="hero-actions">
+        <a href="#products" class="btn btn-primary">
+          <span>Explore the Range</span>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#about" class="btn btn-ghost">Our Story</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-num" data-target="12">0</span><span class="hero-stat-suffix">+</span>
+          <span class="hero-stat-label">Flavors</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num" data-target="50">0</span><span class="hero-stat-suffix">+</span>
+          <span class="hero-stat-label">Stores in Delhi</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num" data-target="100">0</span><span class="hero-stat-suffix">K+</span>
+          <span class="hero-stat-label">Bottles Sold</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-bottle" id="heroBottle">
+      <div class="hero-bottle-glow"></div>
+      <div class="hero-bottle-visual">
+        <img src="images/hero-bottles.png" alt="OG4U Bottles — Rhyme & Soda, OG4U Original, Lemon Squeezy" class="bottle-img" id="heroBottleSvg" draggable="false" />
+      </div>
+      <div class="hero-bottle-ring ring-1"></div>
+      <div class="hero-bottle-ring ring-2"></div>
+      <div class="hero-bottle-ring ring-3"></div>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="hero-scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- Marquee -->
+  <div class="marquee">
+    <div class="marquee-track">
+      <span>OG4U</span><span class="marquee-dot"></span>
+      <span>PREMIUM VODKA</span><span class="marquee-dot"></span>
+      <span>SOFT DRINKS</span><span class="marquee-dot"></span>
+      <span>DELHI EXCLUSIVE</span><span class="marquee-dot"></span>
+      <span>GEN Z APPROVED</span><span class="marquee-dot"></span>
+      <span>BOLD FLAVORS</span><span class="marquee-dot"></span>
+      <span>OG4U</span><span class="marquee-dot"></span>
+      <span>PREMIUM VODKA</span><span class="marquee-dot"></span>
+      <span>SOFT DRINKS</span><span class="marquee-dot"></span>
+      <span>DELHI EXCLUSIVE</span><span class="marquee-dot"></span>
+      <span>GEN Z APPROVED</span><span class="marquee-dot"></span>
+      <span>BOLD FLAVORS</span><span class="marquee-dot"></span>
+    </div>
+  </div>
+
+  <!-- About Section -->
+  <section class="about section" id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag reveal-tag">// WHO WE ARE</span>
+        <h2 class="section-title reveal-title">Built Different.<br/><span class="text-gradient">For the Bold.</span></h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-card reveal-card" data-delay="0">
+          <div class="about-card-icon">
+            <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" stroke="url(#bottleGrad)" stroke-width="2"/><path d="M18 24l4 4 8-8" stroke="#a855f7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>No Cap, All Quality</h3>
+          <p>Every bottle is crafted with premium ingredients. No shortcuts, no fillers — just the real deal your taste buds deserve.</p>
+        </div>
+        <div class="about-card reveal-card" data-delay="1">
+          <div class="about-card-icon">
+            <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" stroke="url(#bottleGrad)" stroke-width="2"/><path d="M24 14v10l6 6" stroke="#6366f1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Made for the Moment</h3>
+          <p>Whether it's a rooftop party in Hauz Khas or chill vibes in Connaught Place — OG4U fits every scene.</p>
+        </div>
+        <div class="about-card reveal-card" data-delay="2">
+          <div class="about-card-icon">
+            <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" stroke="url(#bottleGrad)" stroke-width="2"/><path d="M16 32s2-4 8-4 8 4 8 4M20 20h.01M28 20h.01" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Your Vibe, Your Drink</h3>
+          <p>From fruity soft drinks to smooth vodka — we've got options that match every mood and every squad.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section class="products section" id="products">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag reveal-tag">// THE RANGE</span>
+        <h2 class="section-title reveal-title">Pick Your<br/><span class="text-gradient">Poison.</span></h2>
+      </div>
+      <div class="products-tabs">
+        <button class="products-tab active" data-tab="vodka">Vodka</button>
+        <button class="products-tab" data-tab="soft">Soft Drinks</button>
+      </div>
+      <div class="products-grid" id="productsGrid">
+        <!-- Vodka Products -->
+        <div class="product-card reveal-card" data-category="vodka" data-delay="0">
+          <div class="product-card-visual">
+            <div class="product-glow" style="--glow-color: #f59e0b"></div>
+            <img src="images/bottle-og4u.png" alt="OG4U Original" class="product-bottle-img" draggable="false" />
+          </div>
+          <div class="product-info">
+            <h3>OG4U Original</h3>
+            <p>The signature OG. Original goodness for you — smooth, bold, iconic.</p>
+            <div class="product-tags">
+              <span>330ml</span><span>Premium</span><span>Signature</span>
+            </div>
+          </div>
+        </div>
+        <div class="product-card reveal-card" data-category="vodka" data-delay="1">
+          <div class="product-card-visual">
+            <div class="product-glow" style="--glow-color: #ef4444"></div>
+            <img src="images/hero-bottles.png" alt="OG4U Rhyme & Soda" class="product-bottle-img" draggable="false" />
+          </div>
+          <div class="product-info">
+            <h3>Rhyme & Soda</h3>
+            <p>Fire flames on the label, fire flavor in the bottle. Spicy and bold.</p>
+            <div class="product-tags">
+              <span>330ml</span><span>Premium</span><span>Spicy</span>
+            </div>
+          </div>
+        </div>
+        <div class="product-card reveal-card" data-category="vodka" data-delay="2">
+          <div class="product-card-visual">
+            <div class="product-glow" style="--glow-color: #a855f7"></div>
+            <img src="images/bottle-clear.png" alt="OG4U Premium Clear" class="product-bottle-img" draggable="false" />
+          </div>
+          <div class="product-info">
+            <h3>OG4U Premium Clear</h3>
+            <p>Crystal clear, ultra-pure. Minimalist vibes for the refined palate.</p>
+            <div class="product-tags">
+              <span>500ml</span><span>Premium</span><span>Pure</span>
+            </div>
+          </div>
+        </div>
+        <!-- Soft Drinks -->
+        <div class="product-card reveal-card" data-category="soft" data-delay="0" style="display:none">
+          <div class="product-card-visual">
+            <div class="product-glow" style="--glow-color: #f59e0b"></div>
+            <img src="images/bottles-lemon-mint.png" alt="OG4U Lemon Squeezy" class="product-bottle-img" draggable="false" />
+          </div>
+          <div class="product-info">
+            <h3>Lemon Squeezy</h3>
+            <p>Keep it easy peasy, lemon squeezy. Fresh mint & lemon — Delhi summer's best friend.</p>
+            <div class="product-tags">
+              <span>330ml</span><span>0% Alcohol</span><span>Refreshing</span>
+            </div>
+          </div>
+        </div>
+        <div class="product-card reveal-card" data-category="soft" data-delay="1" style="display:none">
+          <div class="product-card-visual">
+            <div class="product-glow" style="--glow-color: #10b981"></div>
+            <img src="images/bottle-eco.png" alt="OG4U Eco Pure" class="product-bottle-img" draggable="false" />
+          </div>
+          <div class="product-info">
+            <h3>OG4U Eco Pure</h3>
+            <p>Pure water, eco-conscious packaging. Hydration that respects the planet.</p>
+            <div class="product-tags">
+              <span>500ml</span><span>0% Alcohol</span><span>Eco-Friendly</span>
+            </div>
+          </div>
+        </div>
+        <div class="product-card reveal-card" data-category="soft" data-delay="2" style="display:none">
+          <div class="product-card-visual">
+            <div class="product-glow" style="--glow-color: #06b6d4"></div>
+            <img src="images/bottles-ice.png" alt="OG4U Cold Brew Collection" class="product-bottle-img" draggable="false" />
+          </div>
+          <div class="product-info">
+            <h3>Cold Brew Collection</h3>
+            <p>Matcha, almond milk coffee, cold brew — premium chillers for every mood.</p>
+            <div class="product-tags">
+              <span>330ml</span><span>0% Alcohol</span><span>Cold Brew</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Vibe Section -->
+  <section class="vibe section" id="vibe">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag reveal-tag">// THE VIBE</span>
+        <h2 class="section-title reveal-title">Why OG4U<br/><span class="text-gradient">Hits Different.</span></h2>
+      </div>
+      <div class="vibe-grid">
+        <div class="vibe-card vibe-card-large reveal-card" data-delay="0">
+          <div class="vibe-card-bg"></div>
+          <div class="vibe-emoji">&#127881;</div>
+          <h3>Party Starter</h3>
+          <p>Every great Delhi night starts with OG4U. From Hauz Khas to CP — we're the drink that sets the tone.</p>
+        </div>
+        <div class="vibe-card reveal-card" data-delay="1">
+          <div class="vibe-card-bg"></div>
+          <div class="vibe-emoji">&#9889;</div>
+          <h3>Zero Cringe</h3>
+          <p>Clean branding. No boomer energy. Just vibes that actually match your aesthetic.</p>
+        </div>
+        <div class="vibe-card reveal-card" data-delay="2">
+          <div class="vibe-card-bg"></div>
+          <div class="vibe-emoji">&#127793;</div>
+          <h3>Eco Conscious</h3>
+          <p>Recyclable bottles, sustainable sourcing. We care about the planet — no greenwashing.</p>
+        </div>
+        <div class="vibe-card reveal-card" data-delay="3">
+          <div class="vibe-card-bg"></div>
+          <div class="vibe-emoji">&#128293;</div>
+          <h3>Insta-Worthy</h3>
+          <p>Our bottles are designed to flex. Your feed is about to look a whole lot cooler.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lifestyle Gallery -->
+  <section class="lifestyle section" id="lifestyle">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag reveal-tag">// THE LIFESTYLE</span>
+        <h2 class="section-title reveal-title">More Than<br/><span class="text-gradient">A Drink.</span></h2>
+      </div>
+      <div class="lifestyle-grid">
+        <div class="lifestyle-card lifestyle-card-wide reveal-card" data-delay="0">
+          <img src="images/merch-lifestyle.png" alt="OG4U Merch — T-shirt, Socks, Bottle" loading="lazy" />
+          <div class="lifestyle-overlay">
+            <span class="lifestyle-label">OG4U Merch Drop</span>
+          </div>
+        </div>
+        <div class="lifestyle-card reveal-card" data-delay="1">
+          <img src="images/bottles-ice.png" alt="OG4U Bottles on Ice" loading="lazy" />
+          <div class="lifestyle-overlay">
+            <span class="lifestyle-label">Always Chilled</span>
+          </div>
+        </div>
+        <div class="lifestyle-card reveal-card" data-delay="2">
+          <img src="images/bottles-lemon-mint.png" alt="OG4U Lemon Mint" loading="lazy" />
+          <div class="lifestyle-overlay">
+            <span class="lifestyle-label">Fresh Vibes Only</span>
+          </div>
+        </div>
+        <div class="lifestyle-card lifestyle-card-wide reveal-card" data-delay="3">
+          <img src="images/hero-bottles.png" alt="OG4U Product Range" loading="lazy" />
+          <div class="lifestyle-overlay">
+            <span class="lifestyle-label">The Full Range</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Locations Section -->
+  <section class="locations section" id="locations">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag reveal-tag">// FIND US</span>
+        <h2 class="section-title reveal-title">Now Pouring<br/><span class="text-gradient">Across Delhi.</span></h2>
+      </div>
+      <div class="locations-grid">
+        <div class="location-card reveal-card" data-delay="0">
+          <div class="location-pin">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#a855f7"/><circle cx="12" cy="9" r="2.5" fill="#0a0a1a"/></svg>
+          </div>
+          <h3>Connaught Place</h3>
+          <p>Premium bars & lounges in the heart of Delhi</p>
+        </div>
+        <div class="location-card reveal-card" data-delay="1">
+          <div class="location-pin">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#6366f1"/><circle cx="12" cy="9" r="2.5" fill="#0a0a1a"/></svg>
+          </div>
+          <h3>Hauz Khas Village</h3>
+          <p>Rooftop bars, cafes & the coolest nightlife spots</p>
+        </div>
+        <div class="location-card reveal-card" data-delay="2">
+          <div class="location-pin">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#3b82f6"/><circle cx="12" cy="9" r="2.5" fill="#0a0a1a"/></svg>
+          </div>
+          <h3>Saket & Select City</h3>
+          <p>Top retail stores & premium liquor shops</p>
+        </div>
+        <div class="location-card reveal-card" data-delay="3">
+          <div class="location-pin">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#ec4899"/><circle cx="12" cy="9" r="2.5" fill="#0a0a1a"/></svg>
+          </div>
+          <h3>Khan Market</h3>
+          <p>Upscale stores & the trendiest outlets in Delhi</p>
+        </div>
+        <div class="location-card reveal-card" data-delay="4">
+          <div class="location-pin">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#10b981"/><circle cx="12" cy="9" r="2.5" fill="#0a0a1a"/></svg>
+          </div>
+          <h3>Cyber Hub, Gurgaon</h3>
+          <p>The after-work scene's favorite new drink</p>
+        </div>
+        <div class="location-card reveal-card" data-delay="5">
+          <div class="location-pin">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#f59e0b"/><circle cx="12" cy="9" r="2.5" fill="#0a0a1a"/></svg>
+          </div>
+          <h3>Aerocity</h3>
+          <p>Airport-area bars & hotel lounges</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Age Gate / CTA Section -->
+  <section class="cta section" id="contact">
+    <div class="container">
+      <div class="cta-box reveal-card">
+        <div class="cta-glow"></div>
+        <span class="section-tag">// JOIN THE MOVEMENT</span>
+        <h2 class="cta-title">Ready to Go<br/><span class="text-gradient">OG?</span></h2>
+        <p class="cta-desc">Drop your email and be the first to know about new drops, exclusive events, and Delhi pop-ups.</p>
+        <form class="cta-form" id="ctaForm">
+          <div class="cta-input-wrap">
+            <input type="email" placeholder="your@email.com" required class="cta-input" />
+            <button type="submit" class="btn btn-primary cta-submit">
+              <span>I'm In</span>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </form>
+        <p class="cta-note">Must be 21+ for vodka. We keep it legal, fam.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="footer-logo">OG<span>4U</span></a>
+          <p>Original goodness for you. Premium drinks crafted for Gen Z. Now available across Delhi NCR.</p>
+          <div class="footer-socials">
+            <a href="#" aria-label="Instagram">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/></svg>
+            </a>
+            <a href="#" aria-label="Twitter">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 4l6.5 8L4 20h2l5.5-6.8L16 20h4l-7-8.5L19.5 4h-2l-5 6.2L8 4H4z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="#" aria-label="YouTube">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="4" stroke="currentColor" stroke-width="2"/><path d="M10 9l5 3-5 3V9z" fill="currentColor"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-links-group">
+          <h4>Quick Links</h4>
+          <a href="#about">About Us</a>
+          <a href="#products">Products</a>
+          <a href="#vibe">The Vibe</a>
+          <a href="#locations">Find Us</a>
+        </div>
+        <div class="footer-links-group">
+          <h4>Legal</h4>
+          <a href="#">Terms of Service</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Age Verification</a>
+          <a href="#">Responsible Drinking</a>
+        </div>
+        <div class="footer-links-group">
+          <h4>Contact</h4>
+          <a href="mailto:hello@og4u.in">hello@og4u.in</a>
+          <a href="#">Delhi NCR, India</a>
+          <a href="#">+91 98XXX XXXXX</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 OG4U. All rights reserved. Drink responsibly.</p>
+        <p class="footer-age">You must be of legal drinking age to purchase alcohol products.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
