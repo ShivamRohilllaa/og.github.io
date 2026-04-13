@@ -88,15 +88,17 @@ button {
 /* --- Cursor Glow --- */
 .cursor-glow {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 400px;
   height: 400px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.06) 0%, transparent 70%);
   pointer-events: none;
   z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: opacity 0.3s;
+  will-change: transform;
   opacity: 0;
+  transition: opacity 0.3s;
 }
 
 /* --- Preloader --- */
@@ -457,6 +459,14 @@ button {
   border-radius: 50%;
   background: var(--accent-1);
   opacity: 0;
+  animation: particleFloat ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+@keyframes particleFloat {
+  0% { opacity: 0.05; transform: translate3d(0, 0, 0); }
+  50% { opacity: 0.3; }
+  100% { opacity: 0.05; transform: translate3d(20px, -40px, 0); }
 }
 
 .hero-content {
@@ -586,14 +596,20 @@ button {
   width: 420px;
   height: 420px;
   z-index: 1;
-  perspective: 800px;
+  will-change: transform;
 }
 
 .hero-bottle-glow {
   position: absolute;
-  inset: -80px;
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.18) 0%, rgba(99, 102, 241, 0.1) 35%, rgba(59, 130, 246, 0.05) 60%, transparent 75%);
+  inset: -60px;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, rgba(99, 102, 241, 0.08) 40%, transparent 70%);
   border-radius: 50%;
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.06); }
 }
 
 .hero-bottle-visual {
@@ -602,7 +618,6 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  transform-style: preserve-3d;
 }
 
 .bottle-svg,
@@ -610,12 +625,24 @@ button {
   width: 340px;
   max-width: 100%;
   height: auto;
-  filter: drop-shadow(0 0 40px rgba(168, 85, 247, 0.35)) drop-shadow(0 0 80px rgba(99, 102, 241, 0.15));
-  will-change: transform;
   object-fit: contain;
   border-radius: 12px;
   user-select: none;
   -webkit-user-drag: none;
+  will-change: transform;
+}
+
+/* After entrance animation completes, CSS takes over for smooth infinite float */
+.bottle-alive .bottle-img,
+.bottle-alive .bottle-svg {
+  animation: bottleFloat 5s ease-in-out infinite;
+}
+
+@keyframes bottleFloat {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  25% { transform: translate3d(3px, -10px, 0); }
+  50% { transform: translate3d(-2px, -16px, 0); }
+  75% { transform: translate3d(2px, -8px, 0); }
 }
 
 .hero-bottle-ring {
@@ -624,6 +651,7 @@ button {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  will-change: transform;
 }
 
 .ring-1 {
@@ -957,7 +985,6 @@ button {
   object-fit: cover;
   border-radius: 10px;
   transition: var(--transition);
-  filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.2));
   user-select: none;
   -webkit-user-drag: none;
 }
@@ -965,7 +992,6 @@ button {
 .product-card:hover .product-bottle,
 .product-card:hover .product-bottle-img {
   transform: translateY(-10px) rotate(-3deg) scale(1.05);
-  filter: drop-shadow(0 20px 30px rgba(168, 85, 247, 0.25));
 }
 
 .product-info h3 {
@@ -1457,7 +1483,6 @@ button {
   .bottle-svg,
   .bottle-img {
     width: 280px;
-    filter: drop-shadow(0 0 50px rgba(168, 85, 247, 0.4)) drop-shadow(0 0 100px rgba(99, 102, 241, 0.2));
   }
 
   .ring-1 { width: 200px; height: 200px; }
@@ -1607,15 +1632,15 @@ button {
   transform: translateY(40px);
 }
 
-/* --- Bottle Shimmer / Sparkle Effects --- */
-.hero-bottle-visual::before {
+/* --- Bottle Shimmer Effect (GPU-friendly, opacity only) --- */
+.hero-bottle-visual::after {
   content: '';
   position: absolute;
-  top: 10%;
-  left: 20%;
-  width: 60%;
-  height: 80%;
-  background: linear-gradient(180deg, transparent 0%, rgba(168, 85, 247, 0.05) 30%, rgba(255,255,255,0.03) 50%, rgba(99, 102, 241, 0.05) 70%, transparent 100%);
+  top: 5%;
+  left: 15%;
+  width: 70%;
+  height: 90%;
+  background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.03) 40%, rgba(168, 85, 247, 0.04) 60%, transparent 100%);
   border-radius: 50%;
   animation: bottleShimmer 4s ease-in-out infinite;
   pointer-events: none;
@@ -1623,44 +1648,8 @@ button {
 }
 
 @keyframes bottleShimmer {
-  0%, 100% { opacity: 0.3; transform: translateY(0) scaleY(1); }
-  50% { opacity: 0.8; transform: translateY(-10px) scaleY(1.05); }
-}
-
-.hero-bottle-visual::after {
-  content: '';
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: white;
-  top: 15%;
-  left: 60%;
-  box-shadow:
-    0 0 6px 2px rgba(245, 158, 11, 0.5),
-    40px 60px 4px 1px rgba(255, 255, 255, 0.3),
-    -30px 100px 5px 1px rgba(245, 158, 11, 0.3),
-    20px 160px 3px 1px rgba(255, 255, 255, 0.25);
-  animation: sparkle 3s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 2;
-}
-
-@keyframes sparkle {
-  0%, 100% { opacity: 0; transform: scale(0.5); }
-  25% { opacity: 1; transform: scale(1.2); }
-  50% { opacity: 0.3; transform: scale(0.8); }
-  75% { opacity: 0.9; transform: scale(1); }
-}
-
-/* Mobile bottle-specific glow boost */
-@media (max-width: 768px) {
-  .hero-bottle-visual::after {
-    box-shadow:
-      0 0 8px 3px rgba(245, 158, 11, 0.6),
-      25px 50px 5px 2px rgba(255, 255, 255, 0.4),
-      -18px 80px 6px 2px rgba(245, 158, 11, 0.4);
-  }
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.7; }
 }
 
 /* --- Smooth Scroll Snap for nice feel --- */

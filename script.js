@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Cursor Glow (desktop only) ---
   const cursorGlow = document.getElementById('cursorGlow');
-  if (window.matchMedia('(pointer: fine)').matches) {
+  if (globalThis.matchMedia('(pointer: fine)').matches) {
     let mouseX = 0, mouseY = 0;
     let glowX = 0, glowY = 0;
 
@@ -39,8 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateCursor() {
       glowX += (mouseX - glowX) * 0.08;
       glowY += (mouseY - glowY) * 0.08;
-      cursorGlow.style.left = glowX + 'px';
-      cursorGlow.style.top = glowY + 'px';
+      cursorGlow.style.transform = `translate3d(${glowX - 200}px, ${glowY - 200}px, 0)`;
       requestAnimationFrame(updateCursor);
     }
     updateCursor();
@@ -48,16 +47,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Navigation scroll effect ---
   const nav = document.getElementById('nav');
-  let lastScroll = 0;
 
-  window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
-    if (currentScroll > 50) {
+  globalThis.addEventListener('scroll', () => {
+    if (globalThis.scrollY > 50) {
       nav.classList.add('scrolled');
     } else {
       nav.classList.remove('scrolled');
     }
-    lastScroll = currentScroll;
   }, { passive: true });
 
   // --- Mobile Menu ---
@@ -106,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
             scale: 1,
             duration: 0.5,
             ease: 'power3.out',
-            delay: parseInt(card.dataset.delay) * 0.1
+            delay: Number.parseInt(card.dataset.delay) * 0.1
           });
         } else {
           card.style.display = 'none';
@@ -134,295 +130,167 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- GSAP Animations ---
   function initAnimations() {
-    // Hero animations timeline
     const heroTl = gsap.timeline({ defaults: { ease: 'power4.out' } });
 
     heroTl
-      .to('.hero-badge', {
-        opacity: 1,
-        y: 0,
-        duration: 0.8
-      })
-      .to('.hero-title-word', {
-        y: 0,
-        duration: 1,
-        stagger: 0.1,
-        ease: 'power4.out'
-      }, '-=0.4')
-      .to('.hero-sub', {
-        opacity: 1,
-        y: 0,
-        duration: 0.8
-      }, '-=0.5')
-      .to('.hero-actions', {
-        opacity: 1,
-        y: 0,
-        duration: 0.8
-      }, '-=0.5')
-      .to('.hero-stats', {
-        opacity: 1,
-        y: 0,
-        duration: 0.8
-      }, '-=0.5')
-      .to('.hero-scroll', {
-        opacity: 0.6,
-        duration: 0.6
-      }, '-=0.3');
+      .to('.hero-badge', { opacity: 1, y: 0, duration: 0.8 })
+      .to('.hero-title-word', { y: 0, duration: 1, stagger: 0.1 }, '-=0.4')
+      .to('.hero-sub', { opacity: 1, y: 0, duration: 0.8 }, '-=0.5')
+      .to('.hero-actions', { opacity: 1, y: 0, duration: 0.8 }, '-=0.5')
+      .to('.hero-stats', { opacity: 1, y: 0, duration: 0.8 }, '-=0.5')
+      .to('.hero-scroll', { opacity: 0.6, duration: 0.6 }, '-=0.3');
 
-    // Hero bottle entrance — dramatic pop-in
-    const bottleEntryTl = gsap.timeline({ delay: 0.3 });
-    bottleEntryTl
-      .fromTo('#heroBottle', {
-        opacity: 0,
-        scale: 0.3,
-        y: 120,
-        rotation: -15
-      }, {
-        opacity: 1,
-        scale: 1,
-        y: 0,
-        rotation: 0,
-        duration: 1.4,
-        ease: 'elastic.out(1, 0.6)'
-      })
-      .fromTo('.hero-bottle-ring', {
-        opacity: 0,
-        scale: 0.5
-      }, {
-        opacity: 1,
-        scale: 1,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'back.out(2)'
-      }, '-=0.6');
-
-    // Multi-layer floating — body sways, SVG bobs independently
-    gsap.to('#heroBottleSvg', {
-      y: -18,
-      rotation: 2,
-      duration: 2.8,
-      ease: 'sine.inOut',
-      yoyo: true,
-      repeat: -1
+    // Bottle entrance — one clean timeline, then hand off to CSS
+    gsap.fromTo('#heroBottle', {
+      opacity: 0,
+      scale: 0.5,
+      y: 80
+    }, {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      duration: 1.2,
+      ease: 'power4.out',
+      delay: 0.4,
+      onComplete() {
+        // After entrance, add CSS class for lightweight infinite animation
+        document.getElementById('heroBottle').classList.add('bottle-alive');
+      }
     });
 
-    gsap.to('#heroBottle', {
-      y: -10,
-      duration: 4,
-      ease: 'sine.inOut',
-      yoyo: true,
-      repeat: -1
+    gsap.fromTo('.hero-bottle-ring', {
+      opacity: 0, scale: 0.5
+    }, {
+      opacity: 1, scale: 1,
+      duration: 0.8, stagger: 0.15,
+      ease: 'back.out(2)', delay: 0.6
     });
 
-    // Subtle continuous tilt/dance
-    gsap.to('#heroBottleSvg', {
-      rotation: -2.5,
-      duration: 3.5,
-      ease: 'sine.inOut',
-      yoyo: true,
-      repeat: -1,
-      delay: 0.5
-    });
-
-    // Glow pulse sync with movement
-    gsap.to('.hero-bottle-glow', {
-      scale: 1.15,
-      opacity: 0.9,
-      duration: 2.8,
-      ease: 'sine.inOut',
-      yoyo: true,
-      repeat: -1
-    });
-
-    // Ring breathing animation
-    gsap.utils.toArray('.hero-bottle-ring').forEach((ring, i) => {
-      gsap.to(ring, {
-        scale: 1.08,
-        opacity: 0.15,
-        duration: 2.5 + i * 0.5,
-        ease: 'sine.inOut',
-        yoyo: true,
-        repeat: -1,
-        delay: i * 0.3
-      });
-    });
-
-    // Periodic "shake/kick" every few seconds
-    function bottleKick() {
-      const kickTl = gsap.timeline({
-        onComplete: () => {
-          gsap.delayedCall(4 + Math.random() * 3, bottleKick);
-        }
-      });
-      kickTl
-        .to('#heroBottleSvg', { x: 6, rotation: 3, duration: 0.08, ease: 'power2.in' })
-        .to('#heroBottleSvg', { x: -5, rotation: -2.5, duration: 0.08, ease: 'power2.in' })
-        .to('#heroBottleSvg', { x: 4, rotation: 2, duration: 0.07 })
-        .to('#heroBottleSvg', { x: -3, rotation: -1.5, duration: 0.07 })
-        .to('#heroBottleSvg', { x: 0, rotation: 0, duration: 0.3, ease: 'elastic.out(1, 0.4)' });
-    }
-    gsap.delayedCall(3, bottleKick);
-
-    // Scroll parallax — gentle, stays fully visible
+    // Scroll parallax — GPU-only props (translate3d via y), no scale/opacity change
     gsap.to('#heroBottle', {
       scrollTrigger: {
         trigger: '.hero',
         start: 'top top',
         end: 'bottom top',
-        scrub: 1.5
+        scrub: 2
       },
-      y: -40,
-      scale: 0.96
+      y: -30
     });
 
-    // Mouse follow tilt on desktop
-    if (window.matchMedia('(pointer: fine)').matches) {
+    // Mouse follow on desktop — throttled, GPU-only
+    if (globalThis.matchMedia('(pointer: fine)').matches) {
       const heroSection = document.querySelector('.hero');
+      let ticking = false;
+
       heroSection.addEventListener('mousemove', (e) => {
-        const rect = heroSection.getBoundingClientRect();
-        const xPct = (e.clientX - rect.left) / rect.width - 0.5;
-        const yPct = (e.clientY - rect.top) / rect.height - 0.5;
-        gsap.to('#heroBottleSvg', {
-          rotateY: xPct * 12,
-          rotateX: -yPct * 8,
-          x: xPct * 15,
-          duration: 0.8,
-          ease: 'power2.out',
-          overwrite: 'auto'
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          const rect = heroSection.getBoundingClientRect();
+          const xPct = (e.clientX - rect.left) / rect.width - 0.5;
+          const yPct = (e.clientY - rect.top) / rect.height - 0.5;
+          gsap.to('#heroBottleSvg', {
+            x: xPct * 12,
+            y: yPct * 8,
+            duration: 1,
+            ease: 'power2.out',
+            overwrite: 'auto'
+          });
+          ticking = false;
         });
       });
+
       heroSection.addEventListener('mouseleave', () => {
         gsap.to('#heroBottleSvg', {
-          rotateY: 0,
-          rotateX: 0,
-          x: 0,
-          duration: 1,
-          ease: 'elastic.out(1, 0.5)',
+          x: 0, y: 0,
+          duration: 1.2,
+          ease: 'power3.out',
           overwrite: 'auto'
         });
       });
     }
 
-    // Touch drag interaction for mobile
-    if (window.matchMedia('(pointer: coarse)').matches) {
+    // Touch drag for mobile
+    if (globalThis.matchMedia('(pointer: coarse)').matches) {
       let touchStartX = 0;
-      const bottle = document.getElementById('heroBottleSvg');
-      bottle.parentElement.parentElement.addEventListener('touchstart', (e) => {
-        touchStartX = e.touches[0].clientX;
-      }, { passive: true });
-      bottle.parentElement.parentElement.addEventListener('touchmove', (e) => {
-        const dx = (e.touches[0].clientX - touchStartX) * 0.3;
-        gsap.to(bottle, {
-          rotation: dx * 0.15,
-          x: dx,
-          duration: 0.3,
-          ease: 'power2.out',
-          overwrite: 'auto'
-        });
-      }, { passive: true });
-      bottle.parentElement.parentElement.addEventListener('touchend', () => {
-        gsap.to(bottle, {
-          rotation: 0,
-          x: 0,
-          duration: 0.8,
-          ease: 'elastic.out(1, 0.4)',
-          overwrite: 'auto'
-        });
-      }, { passive: true });
+      const bottleEl = document.getElementById('heroBottleSvg');
+      if (bottleEl) {
+        const touchTarget = bottleEl.parentElement.parentElement;
+        touchTarget.addEventListener('touchstart', (e) => {
+          touchStartX = e.touches[0].clientX;
+        }, { passive: true });
+        touchTarget.addEventListener('touchmove', (e) => {
+          const dx = (e.touches[0].clientX - touchStartX) * 0.25;
+          gsap.to(bottleEl, {
+            x: dx,
+            duration: 0.3,
+            ease: 'power2.out',
+            overwrite: 'auto'
+          });
+        }, { passive: true });
+        touchTarget.addEventListener('touchend', () => {
+          gsap.to(bottleEl, {
+            x: 0,
+            duration: 0.6,
+            ease: 'power3.out',
+            overwrite: 'auto'
+          });
+        }, { passive: true });
+      }
     }
 
     // Counter animation
     document.querySelectorAll('.hero-stat-num').forEach(el => {
-      const target = parseInt(el.dataset.target);
+      const target = Number.parseInt(el.dataset.target);
       gsap.to(el, {
         textContent: target,
         duration: 2,
         delay: 1.5,
         ease: 'power2.out',
         snap: { textContent: 1 },
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 90%'
-        }
+        scrollTrigger: { trigger: el, start: 'top 90%' }
       });
     });
 
-    // Particles
     createParticles();
-
-    // Scroll-triggered reveals
     initScrollReveals();
-
-    // Product bottle hover tilt
     initBottleTilt();
   }
 
   // --- Scroll Reveals ---
   function initScrollReveals() {
-    // Section tags
     gsap.utils.toArray('.reveal-tag').forEach(el => {
       gsap.to(el, {
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse'
-        },
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: 'power3.out'
+        scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none reverse' },
+        opacity: 1, y: 0, duration: 0.6, ease: 'power3.out'
       });
     });
 
-    // Section titles
     gsap.utils.toArray('.reveal-title').forEach(el => {
       gsap.to(el, {
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse'
-        },
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-        delay: 0.1
+        scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none reverse' },
+        opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: 0.1
       });
     });
 
-    // Cards
     gsap.utils.toArray('.reveal-card').forEach(el => {
-      const delay = parseInt(el.dataset.delay || 0) * 0.12;
+      const delay = Number.parseInt(el.dataset.delay || 0) * 0.12;
       gsap.to(el, {
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 88%',
-          toggleActions: 'play none none reverse'
-        },
-        opacity: 1,
-        y: 0,
-        duration: 0.7,
-        ease: 'power3.out',
-        delay
+        scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none reverse' },
+        opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', delay
       });
     });
 
-    // Marquee parallax
     gsap.to('.marquee-track', {
-      scrollTrigger: {
-        trigger: '.marquee',
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 0.5
-      },
+      scrollTrigger: { trigger: '.marquee', start: 'top bottom', end: 'bottom top', scrub: 0.5 },
       x: -100
     });
   }
 
-  // --- Particles ---
+  // --- Particles (fewer, CSS-animated instead of per-particle GSAP) ---
   function createParticles() {
     const container = document.getElementById('heroParticles');
-    const count = window.innerWidth < 768 ? 15 : 30;
+    const count = globalThis.innerWidth < 768 ? 8 : 15;
 
     for (let i = 0; i < count; i++) {
       const particle = document.createElement('div');
@@ -437,25 +305,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const colors = ['#a855f7', '#6366f1', '#3b82f6', '#ec4899'];
       particle.style.background = colors[Math.floor(Math.random() * colors.length)];
 
+      const dur = (Math.random() * 4 + 3).toFixed(1);
+      const delay = (Math.random() * 3).toFixed(1);
+      particle.style.animationDuration = `${dur}s`;
+      particle.style.animationDelay = `${delay}s`;
+
       container.appendChild(particle);
-
-      gsap.to(particle, {
-        opacity: Math.random() * 0.5 + 0.1,
-        duration: Math.random() * 2 + 1,
-        delay: Math.random() * 2,
-        repeat: -1,
-        yoyo: true,
-        ease: 'sine.inOut'
-      });
-
-      gsap.to(particle, {
-        y: `random(-80, 80)`,
-        x: `random(-40, 40)`,
-        duration: Math.random() * 6 + 4,
-        repeat: -1,
-        yoyo: true,
-        ease: 'sine.inOut'
-      });
     }
   }
 
@@ -469,7 +324,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const rect = card.getBoundingClientRect();
         const x = (e.clientX - rect.left) / rect.width - 0.5;
         const y = (e.clientY - rect.top) / rect.height - 0.5;
-
         gsap.to(bottle, {
           rotateY: x * 15,
           rotateX: -y * 10,
@@ -480,8 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       card.addEventListener('mouseleave', () => {
         gsap.to(bottle, {
-          rotateY: 0,
-          rotateX: 0,
+          rotateY: 0, rotateX: 0,
           duration: 0.6,
           ease: 'elastic.out(1, 0.5)'
         });
@@ -496,8 +349,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const target = document.querySelector(this.getAttribute('href'));
       if (target) {
         const offset = 80;
-        const top = target.getBoundingClientRect().top + window.scrollY - offset;
-        window.scrollTo({ top, behavior: 'smooth' });
+        const top = target.getBoundingClientRect().top + globalThis.scrollY - offset;
+        globalThis.scrollTo({ top, behavior: 'smooth' });
       }
     });
   });
